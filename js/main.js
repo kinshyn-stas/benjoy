@@ -62,7 +62,6 @@ class Slider{
 	}
 
 	prepareSlidesOnclick(){
-		//Chrome ne rabotaet
 		this.sliders.forEach((slide)=>{
 
 			slide.addEventListener('click', func.bind(this));
@@ -73,15 +72,7 @@ class Slider{
 				slide.classList.add('active');
 				this.slideAll();
 			}
-
-			//console.log(slide.onclick);
-
 		})
-
-		console.log(this.sliders[0]);
-		this.sliders[0].onclick = function(){
-			console.log(this);
-		}
 	}
 
 	createSliderBox(){
