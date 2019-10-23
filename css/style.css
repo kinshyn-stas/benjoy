@@ -866,7 +866,8 @@ input:placeholder{
 	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
+	object-fit: cover;
+    object-position: top center;
 	border-radius: 3px;
 }
 .about_content_right{
@@ -2023,8 +2024,6 @@ input:placeholder{
 	.about_content_left{
 		width: 100%;
 		height: 240px;
-		object-fit: cover;
-		object-position: top center;
 	}
 	.about_content_right{
 		font-size: 16px;
