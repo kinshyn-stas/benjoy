@@ -1283,6 +1283,9 @@ input:placeholder{
 	padding: 200px 0 35px;
 	background-color: #0D8288;
 	background-image: url(../img/head/head-1.jpg);
+	background-size: auto 100%;
+    background-position: top right;
+    background-repeat: no-repeat;
 	color: #ffffff;
 }
 .head_block:before{
@@ -1438,6 +1441,10 @@ input:placeholder{
 		background-size: 100%;
 		background-position: top right;			
 	}
+	.head_block{
+		background-size: 100%;
+		background-position: top right;	
+	}
 }
 @media screen and (max-width: 1240px){
 	.offers_slider .slider_counter{
@@ -1448,6 +1455,24 @@ input:placeholder{
 	}
 	.offers_slider .slider_arrow-right{
 		left: 185px;
+	}
+	.product_box{
+		width: 50%;
+		margin-right: 50%;
+	}
+	.product_box.reverse{
+		margin-left: 0;
+		margin-right: 50%;
+	}
+	.product_box.reverse .product_text{
+		left: auto;
+		right: -100%;
+	}
+	.product_box.reverse .product_text:before{
+		left: -12px;
+	    right: auto;
+	    border-left: none;
+	    border-right: 15px solid #ffffff;
 	}
 }
 @media screen and (max-width: 1100px){
@@ -1683,6 +1708,9 @@ input:placeholder{
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
+	}
+	.head_block{
+		margin-top: 0;
 	}
 }
 @media screen and (max-width: 768px){
@@ -1998,5 +2026,51 @@ input:placeholder{
 		position: relative;
 		left: -10px;
 		min-width: calc(100% + 20px);
+	}
+	.head_block{
+		padding: 177px 0;
+	}
+	.head_block:before{
+		top: auto;
+		bottom: 0;
+		height: 80%;
+		max-width: 100%;
+		background-image: linear-gradient(0deg, #1B707A 0.47%, rgba(27, 112, 122, 0.8) 60.24%, rgba(27, 112, 122, 0) 100%);
+	}
+	.head_title{
+		margin-bottom: 14px;
+		text-align: center;
+	}
+	.head_block .bread-crumbs{
+		margin: 14px 0 0;
+		text-align: center;
+	}
+	.product_block{
+		padding: 50px 0 30px;
+	}
+	.product_box{
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 20px;
+	}
+	.product_box.reverse{
+		margin-right: 0;
+	}
+	.product_logo{
+		padding-top: 84px;
+	}
+	.product_logo img{
+		top: 50%;
+	}
+	.product_text{
+		position: static;
+		padding: 21px 20px 30px;
+		background-color: transparent;
+		font-size: 14px;
+		line-height: 1.8;
+		border: none;
+	}
+	.product_text:before{
+		display: none;
 	}
 }
