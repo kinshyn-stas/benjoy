@@ -27,6 +27,15 @@ window.onload = function(){
 	document.addEventListener('click', clickItemHandler);
 
 	document.addEventListener('click',handlerClickMainHeaderLanguageMobile);
+
+	document.addEventListener('keydown', function(event){
+		if(event.target.tagName.toLowerCase() == 'input' && event.target.type == 'tel'){
+		    let keycode = event.keyCode;
+		    if ((44 < keycode && keycode < 58)||(keycode == 187)||(keycode == 8)||(keycode == 37)||(keycode == 39)){} else {
+		    	event.preventDefault();
+		    };			
+		};
+	});
 };
 
 
