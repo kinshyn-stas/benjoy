@@ -9,11 +9,6 @@ window.onload = function(){
 		navigationArrows: true,
 		navigationCounter: true,
 	});
-	/*new Slider('.tasks_content',{
-		navigationArrows: true,
-		navigationDotters: true,
-		emulateDotters: '#tasks_slider',
-	});*/
 	new Slider('.tasks_slider',{
 		navigationArrows: true,
 		multiDisplay: {
@@ -21,6 +16,7 @@ window.onload = function(){
 			touch: 3,
 			desktop: 5
 		},
+		slideClickRewind: true,
 		emulateDotters: '#tasks_content',
 	});
 
@@ -49,6 +45,8 @@ class Slider{
 			this.prepare();
 			if(this.params.navigationArrows) this.createSliderNavigationArrows();
 			if(this.params.navigationCounter) this.createSliderNavigationCounter();
+			if(this.params.slideClickRewind) this.prepareSlidesOnclick();
+			
 
 			this.box.addEventListener('mousedown',this.mouseFlip.bind(this));
 		    this.box.addEventListener("touchstart", this.touchFlip.bind(this));
@@ -61,6 +59,29 @@ class Slider{
 		this.activeSlider = 0;
 		this.extendSlides();
 		this.slideAll();
+	}
+
+	prepareSlidesOnclick(){
+		//Chrome ne rabotaet
+		this.sliders.forEach((slide)=>{
+
+			slide.addEventListener('click', func.bind(this));
+
+			function func(){
+				console.log(this);
+				this.sliders.forEach(slide => slide.classList.remove('active'));
+				slide.classList.add('active');
+				this.slideAll();
+			}
+
+			//console.log(slide.onclick);
+
+		})
+
+		console.log(this.sliders[0]);
+		this.sliders[0].onclick = function(){
+			console.log(this);
+		}
 	}
 
 	createSliderBox(){
