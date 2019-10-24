@@ -19,6 +19,30 @@ window.onload = function(){
 		slideClickRewind: true,
 		emulateDotters: '#tasks_content',
 	});
+	new Slider('.turn_slider',{
+		navigationArrows: true,
+		navigationCounter: true,
+		multiDisplay: {
+			mobile: 1,
+			touch: 3,
+			desktop: 3,
+			multiShift: true,
+		},
+		multiShift: true,
+	});
+	new Slider('.event_slider',{
+		navigationArrows: true,
+	});
+	new Slider('.prod_slider',{
+		navigationArrows: true,
+		navigationCounter: true,
+		multiDisplay: {
+			mobile: 1,
+			touch: 3,
+			desktop: 3,
+			multiShift: true,
+		},
+	});
 
 	document.addEventListener('click', clickItemHandler);
 
@@ -57,6 +81,19 @@ class Slider{
 
 	prepare(){
 		this.activeSlider = 0;
+		
+		this.slideOnScreen = 1;
+		if(this.params.multiDisplay){
+			let w = document.body.offsetWidth;
+			if(w>0 && w<=700){
+				this.slideOnScreen = this.params.multiDisplay.mobile;
+			} else if(w>700 && w<=1100){
+				this.slideOnScreen = this.params.multiDisplay.touch;
+			} else {
+				this.slideOnScreen = this.params.multiDisplay.desktop;
+			}
+		}
+
 		this.extendSlides();
 		this.slideAll();
 	}
@@ -85,6 +122,7 @@ class Slider{
 		});			
 		this.container.append(this.box);
 		this.box.style.display = 'flex';
+		this.box.style.width = '100%';
 		this.box.style.maxWidth = '100vw';
 		this.box.style.overflow = 'hidden';
 	}
@@ -112,14 +150,20 @@ class Slider{
 	createSliderNavigationCounter(){
 		let slider_counter = document.createElement('div');
 		slider_counter.classList = 'slider_counter';
-		let numberStart = (this.activeSlider + 1<10) ? `0${this.activeSlider + 1}` :  this.activeSlider + 1;
-		let numberEnd = (this.sliders.length<10) ? `0${this.sliders.length}` :  this.sliders.length;
+
+		let numberStart = `01`;
+		let numberEnd = Math.ceil(this.sliders.length / this.slideOnScreen);
+		numberEnd = (numberEnd<10) ? `0${numberEnd}` : numberEnd;
+
 		slider_counter.innerHTML = `<span class="slider_counter_number slider_counter_number-start">${numberStart}</span><span class="slider_counter_line"></span><span class="slider_counter_number slider_counter_number-end">${numberEnd}</span>`;
 		this.container.append(slider_counter);
 	}
 
 	changeSliderNavigationCounter(){
-		let numberStart = (this.activeSlider + 1<10) ? `0${this.activeSlider + 1}` :  this.activeSlider + 1;
+		let numberStart = Math.ceil(this.activeSlider/this.slideOnScreen) + 1;
+		if(numberStart < 1) numberStart = 1;
+		numberStart = (numberStart<10) ? `0${numberStart}` : numberStart;
+
 		this.container.querySelectorAll('.slider_counter_number-start')[0].textContent = numberStart;
 	}
 
@@ -147,20 +191,7 @@ class Slider{
 	}
 
 	extendSlides(){
-		let m = 1;
-
-		if(this.params.multiDisplay){
-			let w = document.body.offsetWidth;
-			if(w>0 && w<=700){
-				m = this.params.multiDisplay.mobile;
-			} else if(w>700 && w<=1100){
-				m = this.params.multiDisplay.touch;
-			} else {
-				m = this.params.multiDisplay.desktop;
-			}
-		}
-
-		this.boxWidth = this.box.offsetWidth/m;
+		this.boxWidth = this.box.offsetWidth/this.slideOnScreen;
 
 		this.sliders.forEach((slide,i,arr)=>{	
 			slide.style.width = `${this.boxWidth}px`;
@@ -203,11 +234,19 @@ class Slider{
 			slide.classList.remove('active');
 		});
 
-		if(params.direction == 'right') this.activeSlider++;
-		if(params.direction == 'left') this.activeSlider--;
-		if(params.counter != undefined) this.activeSlider = params.counter;
-		if(this.activeSlider > this.sliders.length - 1) this.activeSlider = this.sliders.length - 1;
-		if(this.activeSlider < 0) this.activeSlider = 0;
+		if(this.params.multiDisplay.multiShift){
+			if(params.direction == 'right') this.activeSlider += this.slideOnScreen;
+			if(params.direction == 'left') this.activeSlider -= this.slideOnScreen;
+			if(params.counter != undefined) this.activeSlider = params.counter;
+			if(this.activeSlider > this.sliders.length - this.slideOnScreen) this.activeSlider = this.sliders.length - this.slideOnScreen;
+			if(this.activeSlider < 0) this.activeSlider = 0;	
+		} else {
+			if(params.direction == 'right') this.activeSlider++;
+			if(params.direction == 'left') this.activeSlider--;
+			if(params.counter != undefined) this.activeSlider = params.counter;
+			if(this.activeSlider > this.sliders.length - 1) this.activeSlider = this.sliders.length - 1;
+			if(this.activeSlider < 0) this.activeSlider = 0;			
+		}
 
 		this.sliders[this.activeSlider].classList.add('active');
 		this.slideAll();
