@@ -2073,17 +2073,15 @@ input:placeholder{
 }
 .vacancy_notice_title{
 	font-size: 14px;
+	font-weight: 700;
 	line-height: 1.21;
 	text-transform: uppercase;
 }
-.vacancy_notice_image{}
-.vacancy_notice_image svg{}
 .vacancy_accordion_box{
 	margin-top: 40px;
 }
 .vacancy_accordion{
 	margin-bottom: 30px;
-	overflow: hidden;
 }
 .vacancy_accordion.active{
 	margin-bottom: 50px;
@@ -2134,6 +2132,7 @@ input:placeholder{
 	padding-left: 42px;
 	font-size: 14px;
 	opacity: 0;
+	overflow: hidden;
 	line-height: 1.21;
 	transition: opacity 0.6s ease-in-out, height 0.2s linear;
 }
@@ -3016,6 +3015,9 @@ input:placeholder{
 		left: auto;
 		right: 20px;
 	}
+	.event_img{
+		min-height: 346px;
+	}
 	.trust_block{
 		padding-bottom: 50px;
 	}
@@ -3088,5 +3090,37 @@ input:placeholder{
 		font-size: 14px;
 		font-weight: 400;
 		line-height: 1.21;
+	}
+	.privilege_block{
+		padding-bottom: 20px;
+	}
+	.privilege_item{
+		width: calc(50% - 6px);
+	}
+	.vacancy_notice{
+		position: relative;
+		padding: 30px 20px;
+		margin-bottom: 25px;
+		font-size: 14px;
+		line-height: 1.21;
+	}
+	.vacancy_notice_text{
+		padding: 0;
+	}
+	.vacancy_notice_title{
+		padding-right: 69px;
+	}
+	.vacancy_notice_image{
+		position: absolute;
+		top: 12px;
+		right: 20px;
+		z-index: 4;
+	}
+	.vacancy_notice_image svg{
+		width: 44px!important;
+		height: 44px!important;
+	}
+	.vacancy_accordion_box{
+		margin-top: 34px;
 	}
 }
