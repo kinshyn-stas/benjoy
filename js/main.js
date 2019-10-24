@@ -23,10 +23,15 @@ window.onload = function(){
 		navigationArrows: true,
 		navigationCounter: true,
 		multiDisplay: {
-			mobile: 1,
+			mobile: 2,
 			touch: 3,
 			desktop: 3,
 			multiShift: true,
+			marginRight: {
+				mobile: '16',
+				touch: '40',
+				desktop: '40',
+			}
 		},
 		multiShift: true,
 	});
@@ -37,10 +42,15 @@ window.onload = function(){
 		navigationArrows: true,
 		navigationCounter: true,
 		multiDisplay: {
-			mobile: 1,
+			mobile: 2,
 			touch: 3,
 			desktop: 3,
 			multiShift: true,
+			marginRight: {
+				mobile: '16',
+				touch: '40',
+				desktop: '40',
+			}
 		},
 	});
 
@@ -193,10 +203,29 @@ class Slider{
 	extendSlides(){
 		this.boxWidth = this.box.offsetWidth/this.slideOnScreen;
 
-		this.sliders.forEach((slide,i,arr)=>{	
-			slide.style.width = `${this.boxWidth}px`;
-			slide.style.minWidth = `${this.boxWidth}px`;
-		});		
+		if(this.params.multiDisplay && this.params.multiDisplay.marginRight){
+			let marginRight;
+			let w = document.body.offsetWidth 
+			if(w>0 && w<=700){
+				marginRight = this.params.multiDisplay.marginRight.mobile;
+			} else if(w>700 && w<=1100){
+				marginRight = this.params.multiDisplay.marginRight.touch;
+			} else {
+				marginRight = this.params.multiDisplay.marginRight.desktop;
+			}
+
+			this.sliders.forEach((slide,i,arr)=>{
+				let d = this.boxWidth - (marginRight * (this.slideOnScreen - 1)) / this.slideOnScreen;	
+				slide.style.width = `${d}px`;
+				slide.style.minWidth = `${d}px`;
+				if((i + 1) % this.slideOnScreen) slide.style.marginRight = `${marginRight}px`;
+			});			
+		} else {
+			this.sliders.forEach((slide,i,arr)=>{	
+				slide.style.width = `${this.boxWidth}px`;
+				slide.style.minWidth = `${this.boxWidth}px`;
+			});
+		}
 	}
 
 	slideAll(){
@@ -234,11 +263,14 @@ class Slider{
 			slide.classList.remove('active');
 		});
 
-		if(this.params.multiDisplay.multiShift){
+		if(this.params.multiDisplay && this.params.multiDisplay.multiShift){
+			let m = this.sliders.length - (this.sliders.length % this.slideOnScreen);
+			if(m == this.sliders.length) m = this.sliders.length - this.slideOnScreen;
+
 			if(params.direction == 'right') this.activeSlider += this.slideOnScreen;
 			if(params.direction == 'left') this.activeSlider -= this.slideOnScreen;
 			if(params.counter != undefined) this.activeSlider = params.counter;
-			if(this.activeSlider > this.sliders.length - this.slideOnScreen) this.activeSlider = this.sliders.length - this.slideOnScreen;
+			if(this.activeSlider >= m) this.activeSlider = m;
 			if(this.activeSlider < 0) this.activeSlider = 0;	
 		} else {
 			if(params.direction == 'right') this.activeSlider++;
