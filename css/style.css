@@ -2784,7 +2784,6 @@ input:placeholder{
 		padding-bottom: 20px;
 	}
 	.aboutus_partners{
-		margin-top: 25px;
 		flex-direction: column;
     	align-items: center; 
 	}
@@ -2905,5 +2904,20 @@ input:placeholder{
 	}
 	.experts_item_title{
 		margin-bottom: 4px;	
+	}
+	.content_block{
+		padding-bottom: 30px;
+	}
+	.keys_block{
+		padding-bottom: 20px;
+	}
+	.keys_item{		
+		width: calc(50% - 8px);
+		margin-bottom: 30px;
+	}
+	.keys_item figcaption{
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.21;
 	}
 }
