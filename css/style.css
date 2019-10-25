@@ -463,28 +463,28 @@ input:placeholder{
 
 .main{}
 .main-double{
+	position: relative;
 	display: flex;
+	flex-direction: column;
+	padding-right: 399px;
 	max-width: 1220px;
 	margin-left: auto;
 	margin-right: auto;
 }
 .main_content-left{
-	max-width: 100%;
-	flex-grow: 100;
 	padding-top: 100px;
-}
-.main-double .main_content-left{
-	max-width: calc(100% - 399px);
 }
 .main-double .main_content-left h2{
 	text-align: left;
 }
 .main_content-right{
+	position: absolute;
+	top: 100px;
+	right: 0;
+	z-index: 100;
 	width: 345px;
 	min-width: 345px;
-	padding-top: 100px;
 	padding-right: 10px;
-	margin-left: 54px;
 }
 
 
@@ -1242,15 +1242,14 @@ input:placeholder{
 
 
 .standart_block{
-	margin-bottom: -100px;
+	position: relative;
+	z-index: 100;
+	margin-bottom: -120px;
 	padding: 25px 0 12px;
 }
 .standart_title{
 	text-align: left;
 	margin-bottom: 14px;
-}
-.standart_block+.main-double .main_content-left{
-	padding-top: 80px;
 }
 
 .link-back_box{
@@ -2307,7 +2306,7 @@ h2+.diamond_box{
 		padding-top: 78px;
 	}
 	.main-double{
-		flex-wrap: wrap;
+		padding-right: 0;
 	}
 	.main_content-left{
 		padding-top: 50px;
@@ -2321,6 +2320,7 @@ h2+.diamond_box{
 		padding-top: 0;
 	}
 	.main_content-right{
+		position: static;
 		order: 4;
 		width: 100%;
 		min-width: 0;
@@ -2576,6 +2576,7 @@ h2+.diamond_box{
 	.standart_block .center-main-block{
 		display: flex;
 		flex-direction: column;
+		padding-right: 0;
 	}
 	.link-back_box{
 		order: 4;

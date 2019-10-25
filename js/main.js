@@ -54,9 +54,9 @@ window.onload = function(){
 		},
 	});
 
+
 	document.addEventListener('click', clickItemHandler);
 
-	//document.addEventListener('click',handlerClickMainHeaderLanguageMobile);
 
 	document.addEventListener('keydown', function(event){
 		if(event.target.tagName.toLowerCase() == 'input' && event.target.type == 'tel'){
@@ -66,6 +66,9 @@ window.onload = function(){
 		    };			
 		};
 	});
+
+
+	new News('.news_block');
 };
 
 
@@ -476,5 +479,3 @@ class News{
 		})
 	}
 }
-
-let news = new News('.news_block');
