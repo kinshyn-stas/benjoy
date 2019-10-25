@@ -386,3 +386,20 @@ function handlerClickMainHeaderLanguageMobile(){
 	});
 	target.classList.add('active');
 }
+
+
+		/*prepareCalendar(parametrs){
+			this.box = parametrs.box;
+			if(parametrs.eventsCalendar) this.eventsCalendar = JSON.parse(parametrs.eventsCalendar);
+			this.createCalendar();
+		}*/
+
+var requestURL = '../js/news.json';
+var request = new XMLHttpRequest();
+request.open('GET', requestURL);
+request.responseType = 'json';
+request.send();
+request.onload = function() {
+ 	console.log(request.response);
+  
+}
