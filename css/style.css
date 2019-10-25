@@ -385,17 +385,17 @@ input:placeholder{
 .main-header_phone{
 	position: relative;
 	padding-left: 26px;
-	margin-bottom: 17px;
+	margin-bottom: 14px;
 }
 .main-header_phone svg{
 	position: absolute;
-    top: -3px;
-    left: -1px;
+    top: 0;
+    left: 0;
 }
 .main-header_phone span{
 	font-weight: 900;
 	font-size: 19px;
-	line-height: 1.21px;
+	line-height: 1.21;
 }
 .main-header_call-bell{
 	font-size: 12px;
@@ -696,8 +696,8 @@ input:placeholder{
 }
 .tasks_box_title{
 	margin-bottom: 7px;
-	font-weight: bold;
 	font-size: 16px;
+	font-weight: 700;
 	line-height: 1.1875;
 }
 .tasks_box_undertitle{
@@ -1316,17 +1316,10 @@ input:placeholder{
 
 .contacts_box{
 	margin-bottom: 29px;
-}
-.contacts_box_title{
-	margin-bottom: 10px;
-	color: #8C9293;
-	font-size: 12px;
-	font-weight: 900;
-	line-height: 1.16;
-	text-transform: uppercase;
-}
-.contacts_box_text{
 	line-height: 1.75;
+}
+.contacts_box .text-little{
+	margin-bottom: 10px;
 }
 
 .contacts_social-links{
@@ -1540,6 +1533,9 @@ input:placeholder{
 	width: calc(50% - 20px);
 	padding: 42px 50px 39px 0;
 }
+.services_box:nth-of-type(2n+2) figcaption{
+	padding: 42px 0 39px 50px
+}
 .services_box figcaption header{
 	display: flex;
 	justify-content: space-between;
@@ -1563,12 +1559,8 @@ input:placeholder{
 .services_box footer{
 	padding-top: 36px;
 }
-.services_used{
+.services_box .text-little{
 	margin-bottom: 13px;
-	font-size: 12px;
-	font-weight: 900;
-	line-height: 1.16;
-	text-transform: uppercase;
 }
 .services_logos{
 	display: flex;
@@ -1614,19 +1606,36 @@ input:placeholder{
 .content_block p:last-of-type{
 	margin-bottom: 0;
 }
-.text-big{
-	margin-bottom: 20px;
-	font-size: 18px;
-	line-height: 1.74;
+.content_block ul{
+	margin-top: 12px;
+	padding-left: 1em;
+}
+.content_block ul li{
+	margin-bottom: 0.75em;
 }
 .text-normal{
 	font-size: 16px;
 	line-height: 1.9;
 }
+.text-norm{
+	font-size: 16px;
+	line-height: 1.875;
+}
+.main .text-little{
+	margin-bottom: 12px;
+	color: #3b3b3b;
+	font-size: 12px;
+	font-weight: 900;
+	line-height: 1.16;
+	text-transform: uppercase;
+}
 .main-image{
 	margin: 30px auto 10px;
 	overflow: hidden;
 	border-radius: 5px;
+}
+.main-image-margin-x{
+	margin: 40px auto;
 }
 .main-image img{
 	display: block;
@@ -1722,11 +1731,19 @@ input:placeholder{
 .diamond_block{
 	padding-bottom: 66px;
 }
+.diamond_block-inner{
+	padding-bottom: 16px;
+}
+.diamond_title{
+	margin-bottom: 40px;
+}
 .diamond_box{
-	margin-top: 40px;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+h2+.diamond_box{
+	margin-top: 24px;	
 }
 .diamond_item{
 	width: calc(50% - 20px);
@@ -2137,13 +2154,6 @@ input:placeholder{
 	height: auto;
 	opacity: 1;
 }
-.vacancy_accordion .vacancy_accordion_title{
-	margin-bottom: 12px;
-	font-size: 12px;
-	font-weight: 900;
-	line-height: 1.16;
-	text-transform: uppercase;
-}
 .vacancy_accordion_body ul{
 	padding-left: 1em;
 	margin-bottom: 30px;
@@ -2223,13 +2233,6 @@ input:placeholder{
 
 .goal_block{
 	padding-bottom: 60px;
-}
-.goal_block .goal_title{
-	margin-bottom: 12px;
-	font-size: 12px;
-	font-weight: 900;
-	line-height: 1.16;
-	text-transform: uppercase;
 }
 .goal_block ul{
 	margin-bottom: 30px;
@@ -2626,7 +2629,8 @@ input:placeholder{
 		order: 4;
 		margin-left: 0;
 	}
-	.services_box figcaption{
+	.services_box figcaption,
+	.services_box:nth-of-type(2n+2) figcaption{
 		width: 100%;
 		padding: 29px 20px 0;
 	}
@@ -3053,7 +3057,13 @@ input:placeholder{
 	.diamond_block{
 		padding-bottom: 30px;
 	}
-	.diamond_box{
+	.diamond_block-inner{
+		padding-bottom: 20px;
+	}
+	.diamond_title{
+		margin-bottom: 15px;
+	}
+	h2+.diamond_box{
 		margin-top: 15px;
 	}
 	.diamond_item{
@@ -3151,6 +3161,9 @@ input:placeholder{
 	}
 	.content_block{
 		padding-bottom: 30px;
+	}
+	.main-image-margin-x{
+		margin: 25px auto 50px;
 	}
 	.keys_block{
 		padding-bottom: 20px;
