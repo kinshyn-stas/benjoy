@@ -388,18 +388,75 @@ function handlerClickMainHeaderLanguageMobile(){
 }
 
 
-		/*prepareCalendar(parametrs){
-			this.box = parametrs.box;
-			if(parametrs.eventsCalendar) this.eventsCalendar = JSON.parse(parametrs.eventsCalendar);
-			this.createCalendar();
-		}*/
+class News{
+	constructor(selector){
+		document.querySelectorAll(selector).forEach((container) => {
+			this.container = container;
+			this.head = this.container.querySelector('.news_head');
+			this.box = this.container.querySelector('.news_box');
 
-var requestURL = '../js/news.json';
-var request = new XMLHttpRequest();
-request.open('GET', requestURL);
-request.responseType = 'json';
-request.send();
-request.onload = function() {
- 	console.log(request.response);
-  
+			this.prepareJSON(this.prepare.bind(this));
+		});
+	}
+
+	prepareJSON(callback){
+		this.data = JSON.parse(newsData);
+		callback();
+	}
+
+	prepare(){
+		this.prepareLabels();
+		this.setActualTag();
+		this.createItems();	
+	}
+
+	prepareLabels(){
+		this.labels = this.head.querySelectorAll('li');
+		this.labels.forEach((label,i) => {
+			label.addEventListener('click',func.bind(this));
+
+			function func(){
+				console.log(this);
+				this.setActualTag(i);
+				console.log(this.actualTag);
+				this.createItems();
+			}			
+		})
+	}
+
+	setActualTag(n = 0){
+		this.labels.forEach((label,i) => {
+			label.classList.remove('actual');
+		})
+
+		this.labels[n].classList.add('actual');
+		this.actualTag = this.labels[n].dataset.tag;
+	}
+
+	createItems(){
+		this.box.innerHTML = '';
+		this.itemInRow = 3;
+
+		if(document.body.offsetWidth <= 700){
+			this.itemInRow = 1;
+		}
+
+		this.data.forEach((item) => {
+			if(this.actualTag == 'all'){
+				this.createItem(item)
+			} else {
+				if(!item.tags.split(' ').indexOf(this.actualTag)) this.createItem(item);
+			}
+		})
+	}
+
+	createItem(data){
+		let item = document.createElement('a');
+		item.classList = `news_item ${data.tags}`;
+		if(item.href) item.href = data.href;
+		item.innerHTML = `<figure><img src="${data.src}" alt="" /></figure><figcaption>${data.title}</figcaption>`;
+		this.box.append(item);
+	}
 }
+
+let news = new News('.news_block');

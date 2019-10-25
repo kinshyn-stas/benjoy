@@ -2217,6 +2217,7 @@ input:placeholder{
 	display: inline-block;
 	width: 30%;
 	margin-bottom: 60px;
+	transition: all 0.2s ease-in-out;
 }
 .news_item figure{
 	position: relative;
