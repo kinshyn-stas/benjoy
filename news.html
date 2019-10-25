@@ -84,11 +84,11 @@
 					</div>
 				</div>
 
-				<div class="main-header_langs-mob">
+				<div class="main-header_langs-mob click-obj">
 					<div class="main-header_langs-mob_list">
-						<a class="main-header_lang-mob active">EN</a>
-						<a class="main-header_lang-mob">UA</a>
-						<a class="main-header_lang-mob">RU</a>
+						<a class="main-header_lang-mob click-item active" data-action="menu">EN</a>
+						<a class="main-header_lang-mob click-item" data-action="menu">UA</a>
+						<a class="main-header_lang-mob click-item" data-action="menu">RU</a>
 					</div>
 				</div>
 
@@ -140,15 +140,18 @@
 				<div class="center-main-block">
 					
 					<div class="news_head">
-						<ul>
-							<li data-tag="all">Все</li>
-							<li data-tag="news_item-events">События</li>
-							<li data-tag="news_item-history">История успеха</li>
-							<li data-tag="news_item-tech">Технологии</li>
+						<ul class="click-obj">
+							<li class="click-item" data-tag="all">Все</li>
+							<li class="click-item" data-tag="news_item-events">События</li>
+							<li class="click-item" data-tag="news_item-history">История успеха</li>
+							<li class="click-item" data-tag="news_item-tech">Технологии</li>
 						</ul>
 					</div>
 					<div class="news_body">
 						<div class="news_box"></div>
+						<div class="button_fill_container">
+							<a class="button_fill news_load">загрузить еще</a>
+						</div>
 					</div>
 
 				</div>

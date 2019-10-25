@@ -56,7 +56,7 @@ window.onload = function(){
 
 	document.addEventListener('click', clickItemHandler);
 
-	document.addEventListener('click',handlerClickMainHeaderLanguageMobile);
+	//document.addEventListener('click',handlerClickMainHeaderLanguageMobile);
 
 	document.addEventListener('keydown', function(event){
 		if(event.target.tagName.toLowerCase() == 'input' && event.target.type == 'tel'){
@@ -365,25 +365,27 @@ function clickItemHandler(event){
 	let item = event.target.closest('.click-item');	
 
 	let obj = {
-		toggle: function(target){
+		'toggle': function(target){
 			target.closest('.click-obj').classList.toggle('active');
-		}
+		},
+
+		'menu': toggleMenu,
 	}
 
 	let action = item.dataset.action ? item.dataset.action : 'toggle';
 	obj[action](item);
 };
 
+function toggleMenu(target){
+	let menu = target.closest('.click-obj');
+	menu.classList.toggle('active');
 
-function handlerClickMainHeaderLanguageMobile(){	
-	if(!event.target.closest('.main-header_lang-mob')) return;
-	let box = event.target.closest('.main-header_langs-mob')
-	let target = event.target.closest('.main-header_lang-mob');	
-
-	box.classList.toggle('active');
-	box.querySelectorAll('.main-header_lang-mob').forEach((item,i)=>{
-		item.classList.remove('active');
+	let c;
+	target.classList.forEach((cl) => {
+		if(cl != 'active' && cl != 'click-item') c = `.${cl}`;
 	});
+
+	menu.querySelectorAll(c).forEach(item => item.classList.remove('active'));
 	target.classList.add('active');
 }
 
@@ -394,6 +396,7 @@ class News{
 			this.container = container;
 			this.head = this.container.querySelector('.news_head');
 			this.box = this.container.querySelector('.news_box');
+			this.newsCounter = 0;
 
 			this.prepareJSON(this.prepare.bind(this));
 		});
@@ -407,7 +410,8 @@ class News{
 	prepare(){
 		this.prepareLabels();
 		this.setActualTag();
-		this.createItems();	
+		this.createItems();
+		this.prepareButton();
 	}
 
 	prepareLabels(){
@@ -416,15 +420,15 @@ class News{
 			label.addEventListener('click',func.bind(this));
 
 			function func(){
-				console.log(this);
 				this.setActualTag(i);
-				console.log(this.actualTag);
 				this.createItems();
 			}			
 		})
 	}
 
 	setActualTag(n = 0){
+		if(this.actualTag == this.labels[n].dataset.tag) return;
+
 		this.labels.forEach((label,i) => {
 			label.classList.remove('actual');
 		})
@@ -435,19 +439,23 @@ class News{
 
 	createItems(){
 		this.box.innerHTML = '';
-		this.itemInRow = 3;
+		this.maxItemOnPage = 9;
 
 		if(document.body.offsetWidth <= 700){
-			this.itemInRow = 1;
+			this.maxItemOnPage = 6;
 		}
 
-		this.data.forEach((item) => {
+		this.data.forEach((item,i) => {
+			if(i < this.newsCounter || i >= this.newsCounter + this.maxItemOnPage) return;
+
 			if(this.actualTag == 'all'){
 				this.createItem(item)
 			} else {
 				if(!item.tags.split(' ').indexOf(this.actualTag)) this.createItem(item);
 			}
 		})
+
+		this.newsCounter += this.maxItemOnPage;
 	}
 
 	createItem(data){
@@ -456,6 +464,16 @@ class News{
 		if(item.href) item.href = data.href;
 		item.innerHTML = `<figure><img src="${data.src}" alt="" /></figure><figcaption>${data.title}</figcaption>`;
 		this.box.append(item);
+	}
+
+	prepareButton(){
+		this.container.querySelectorAll('.news_load').forEach((button)=>{
+			button.addEventListener('click',func.bind(this));
+
+			function func(){
+				this.createItems();
+			}
+		})
 	}
 }
 
