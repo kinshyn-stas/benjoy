@@ -56,6 +56,8 @@ window.onload = function(){
 
 
 	document.addEventListener('click', clickItemHandler);
+
+
 	document.addEventListener('click', startVideo);
 
 
@@ -70,6 +72,10 @@ window.onload = function(){
 
 
 	new News('.news_block');
+
+	//scrollImitate('body');
+
+	emulateSelector('.select_emulator');
 };
 
 
@@ -490,3 +496,84 @@ function startVideo(event){
 	box.classList.add('active');
 	box.innerHTML = `<iframe src="${img.dataset.src}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
 }
+
+
+/*function scrollImitate(container){
+	console.log(document.querySelectorAll(container));
+	document.querySelectorAll(container).forEach((parent)=>{
+		let box = document.createElement('div');
+		box.classList = 'scroll-imitate_box';
+		let content = document.createElement('div');
+		content.classList = 'scroll-imitate_content';
+		while(parent.children.length){
+			content.append(parent.children[0]);
+		}
+		box.append(content);
+		parent.append(box);
+
+
+		let scrollLine = document.createElement('div');
+		scrollLine.classList = 'scroll-line';
+		let scrollItem = document.createElement('div');
+		scrollItem.classList = 'scroll-item';
+		scrollLine.append(scrollItem);
+		parent.append(scrollLine);
+
+
+		scrollItem.style.height = box.offsetHeight/content.offsetHeight * 100 + '%';
+
+
+		box.onscroll = ()=>{
+			scrollItem.style.top = box.scrollTop/content.offsetHeight * 100 + '%';
+			scrollItem.style.height = box.offsetHeight/content.offsetHeight * 100 + '%';
+		}
+	});
+}*/
+
+function emulateSelector(select){
+	let selects = document.querySelectorAll(select);
+
+	selects.forEach((select) =>{
+		select.hidden = true;
+
+		let emul = document.createElement('div');
+		emul.classList = "select";
+		emul.onclick = ()=>emul.classList.toggle('active');
+		let emulList = document.createElement('div');
+		emulList.classList = "select_list";
+		emul.append(emulList);
+
+
+		select.querySelectorAll('option').forEach((item)=>{
+			let option = document.createElement('div');
+			option.classList = "select_option";
+			option.innerHTML = item.innerHTML;
+			option.dataset.value = item.value;
+			option.onclick = ()=>{
+				select.value=option.dataset.value;
+				option.parentNode.querySelectorAll('.select_option').forEach((option)=>{
+					option.classList.remove('selected')
+				});
+				option.classList.add('selected');
+			};
+			if(item.selected) option.classList.add('selected');
+			emulList.append(option);
+		});
+
+		select.parentNode.append(emul);
+
+		let heightStart = emul.querySelector('.select_option').offsetHeight;
+		let heightEnd = 0;
+		emul.querySelectorAll('.select_option').forEach((option)=>{
+			heightEnd += option.offsetHeight;
+		});
+		emul.style.height = heightStart + 'px';
+		emul.querySelector('.select_list').style.maxHeight = heightStart + 'px';		
+	})
+
+	let z = 1;
+	for(let i=selects.length - 1; i>=0; i--){
+		selects[i].parentNode.querySelector('.select').style.zIndex = `${z}0`;
+		z++;
+	}
+};
