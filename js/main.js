@@ -56,6 +56,7 @@ window.onload = function(){
 
 
 	document.addEventListener('click', clickItemHandler);
+	document.addEventListener('click', startVideo);
 
 
 	document.addEventListener('keydown', function(event){
@@ -363,36 +364,6 @@ class Slider{
 };
 
 
-function clickItemHandler(event){
-	if(!event.target.closest('.click-item')) return;
-	let item = event.target.closest('.click-item');	
-
-	let obj = {
-		'toggle': function(target){
-			target.closest('.click-obj').classList.toggle('active');
-		},
-
-		'menu': toggleMenu,
-	}
-
-	let action = item.dataset.action ? item.dataset.action : 'toggle';
-	obj[action](item);
-};
-
-function toggleMenu(target){
-	let menu = target.closest('.click-obj');
-	menu.classList.toggle('active');
-
-	let c;
-	target.classList.forEach((cl) => {
-		if(cl != 'active' && cl != 'click-item') c = `.${cl}`;
-	});
-
-	menu.querySelectorAll(c).forEach(item => item.classList.remove('active'));
-	target.classList.add('active');
-}
-
-
 class News{
 	constructor(selector){
 		document.querySelectorAll(selector).forEach((container) => {
@@ -478,4 +449,44 @@ class News{
 			}
 		})
 	}
+};
+
+
+function clickItemHandler(event){
+	if(!event.target.closest('.click-item')) return;
+	let item = event.target.closest('.click-item');	
+
+	let obj = {
+		'toggle': function(target){
+			target.closest('.click-obj').classList.toggle('active');
+		},
+
+		'menu': toggleMenu,
+	}
+
+	let action = item.dataset.action ? item.dataset.action : 'toggle';
+	obj[action](item);
+};
+
+function toggleMenu(target){
+	let menu = target.closest('.click-obj');
+	menu.classList.toggle('active');
+
+	let c;
+	target.classList.forEach((cl) => {
+		if(cl != 'active' && cl != 'click-item') c = `.${cl}`;
+	});
+
+	menu.querySelectorAll(c).forEach(item => item.classList.remove('active'));
+	target.classList.add('active');
+}
+
+function startVideo(event){
+	if(!event.target.closest('.video_box')) return;
+	let box = event.target.closest('.video_box');
+
+	let img = box.querySelector('img');
+
+	box.classList.add('active');
+	box.innerHTML = `<iframe src="${img.dataset.src}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
 }
